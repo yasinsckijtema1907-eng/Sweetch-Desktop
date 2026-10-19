@@ -125,7 +125,7 @@ internal sealed class App : Application
 
     private TrayIcon CreateTray()
     {
-        var tray = new TrayIcon(OpenDesktop, OpenSettings, () => _controller.OpenForClipboard(), () => ShelfWindow.Open([]), ShowHelp, UI.FeedbackWindow.ShowSingle, SetPaused, _settings.Paused, () => Shutdown());
+        var tray = new TrayIcon(OpenDesktop, OpenSettings, () => _controller.OpenForClipboard(), () => ShelfWindow.Open([]), ShowHelp, SetPaused, _settings.Paused, () => Shutdown());
         if (_updater.Available is { } update)
             tray.OfferUpdate(update.Version, () => _ = _updater.InstallAsync(update));
         return tray;
