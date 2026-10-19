@@ -4,6 +4,8 @@
 
 **[Скачать готовую программу → Releases](https://github.com/yasinsckijtema1907-eng/Sweetch-Desktop/releases/latest)**
 
+В версии 1.0.2 кнопка «Поддержать проект» открывает [страницу поддержки в Ozon Банке](https://finance.ozon.ru/apps/sbp/ozonbankpay/01a15626-f41a-7445-915d-3349d0f96806) в браузере. Адрес также виден во всплывающей подсказке кнопки.
+
 ![Главное окно Sweetch Desktop](docs/desktop-dark.png)
 
 ![Круговое меню конвертации](docs/desktop-wheel.png)
@@ -14,7 +16,7 @@
 
 ## Запуск
 
-1. Скачайте `SweetchDesktop-1.0.1-win-x64.zip` из раздела Releases.
+1. Скачайте `SweetchDesktop-1.0.2-win-x64.zip` из раздела Releases.
 2. Распакуйте **весь архив**, включая папку `tools`.
 3. Запустите **SweetchDesktop.exe**. Устанавливать .NET не нужно.
 4. Нажмите **«Выбрать файлы»** или перетащите их в окно → **«Выбрать формат»** → нажмите нужный сектор кругового меню.
