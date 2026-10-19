@@ -4,7 +4,7 @@ namespace Sweetch.App.Shell;
 /// <summary>No update server is configured for Sweetch 1.0. No background traffic or installers.</summary>
 internal sealed class Updater
 {
-    public static Version Current => new(1, 0, 0);
+    public static Version Current => new(1, 0, 1);
     public static bool IsInstalled => false;
     public UpdateInfo? Available => null;
     public DateTime? LastChecked => null;
