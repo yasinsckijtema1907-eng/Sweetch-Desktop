@@ -27,11 +27,11 @@ internal static class SelfTest
             _ = new Application { ShutdownMode = ShutdownMode.OnExplicitShutdown };
             JobCard.Animate = false;
             Check(Enum.GetValues<Language>().Length == 2, "only English and Russian languages");
-            Check(Brand.Trc20 == "TQHTy7kbk3ngYTUfrTpEeSi3hP38tnqJNU", "TRC20 support address");
-            Check(Brand.DonatePay == "https://donatepay.ru/don/1539048" && Brand.Channel == "https://t.me/mmmorozov", "project links");
+            Check(Brand.Repository == "https://github.com/yasinsckijtema1907-eng/Sweetch-Desktop", "desktop repository");
+            Check(Brand.Channel == Brand.Repository + "/issues" && Brand.Releases == Brand.Repository + "/releases/latest", "project links");
             var disabledUpdater = new Shell.Updater();
             Check(disabledUpdater.CheckAsync().GetAwaiter().GetResult() is null && disabledUpdater.LastChecked is null, "updates disabled");
-            log.Add("ok Sweetch 1.0 branding, links, languages and disabled updates");
+            log.Add("ok Sweetch Desktop branding, links, languages and disabled updates");
             TestBundledPandoc(outDir, log);
             foreach (var (language, dark, folder) in new[] { (Language.English, true, "en"), (Language.English, false, "en-light"), (Language.Russian, true, "ru"), (Language.Russian, false, "ru-light") })
             {
@@ -70,6 +70,10 @@ internal static class SelfTest
     private static void RenderAll(string outDir, bool english, List<string> log)
     {
         Directory.CreateDirectory(outDir);
+        var desktop = new DesktopWindow(_ => { }, () => { });
+        SaveWindow(desktop, Path.Combine(outDir, "desktop.png"), 820);
+        desktop.Close();
+        log.Add($"ok {Path.GetFileName(outDir)}/desktop");
         string N(string cs, string en) => english ? en : cs;
         var settings = new AppSettings();
         var tools = new ToolLocator();
@@ -173,7 +177,7 @@ internal static class SelfTest
         Check(back.Hotkey == HotkeyPreset.CtrlAltW && back.FavoriteOperations.Single() == "image.to.webp" && back.Language == Language.Russian, "settings JSON round trip");
         Check(json.Contains("\"CtrlAltW\""), "enums stored as names");
         Check(back.Appearance == AppAppearance.Light, "theme setting round trip");
-        Check(AppSettings.Folder.EndsWith("Sweetch") && !new AppSettings().CheckForUpdates, "isolated settings and updates off by default");
+        Check(AppSettings.Folder.EndsWith("SweetchDesktop") && !new AppSettings().CheckForUpdates, "isolated settings and updates off by default");
         log.Add("ok settings json");
     }
 

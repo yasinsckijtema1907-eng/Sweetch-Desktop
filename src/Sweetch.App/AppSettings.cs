@@ -21,7 +21,7 @@ public enum HotkeyPreset
 /// <summary>User preferences, stored as JSON in %APPDATA%\Sweetch\settings.json.</summary>
 public sealed class AppSettings
 {
-    public static string Folder { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Sweetch");
+    public static string Folder { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "SweetchDesktop");
 
     private static string FilePath => Path.Combine(Folder, "settings.json");
 

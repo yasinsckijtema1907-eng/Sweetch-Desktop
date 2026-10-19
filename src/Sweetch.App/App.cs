@@ -31,7 +31,7 @@ public static class Program
         if (instance is null)
         {
             // Already running: hand over the request (or just open the settings).
-            SingleInstance.Forward(args.Length > 0 ? args : ["--settings"]);
+            SingleInstance.Forward(args.Length > 0 ? args : ["--home"]);
             return 0;
         }
         var app = new App(instance, args);
@@ -109,8 +109,6 @@ internal sealed class App : Application
         {
             _settings.FirstRunDone = true;
             _settings.Save();
-            TryIntegrateOnFirstRun();
-            OpenSettings();
         }
         else if (_args.Contains("--updated"))
         {
@@ -121,23 +119,13 @@ internal sealed class App : Application
             _tray.Show(T("Sweetch is running", "Sweetch запущен"), T("Grab a file, tap Shift while dragging and drop it on a format.", "Перетащите файл, нажмите Shift и отпустите его над нужным форматом."), false);
         }
         HandleArgs(_args);
-    }
-
-    private static void TryIntegrateOnFirstRun()
-    {
-        try
-        {
-            ShellIntegration.SetContextMenu(true);
-            ShellIntegration.SetAutostart(true);
-        }
-        catch (Exception ex) when (ex is UnauthorizedAccessException or System.Security.SecurityException or IOException)
-        {
-        }
+        if (!_args.Contains("--background") && !_args.Contains("--settings") && !_args.Contains("--wheel"))
+            OpenDesktop();
     }
 
     private TrayIcon CreateTray()
     {
-        var tray = new TrayIcon(OpenSettings, () => _controller.OpenForClipboard(), () => ShelfWindow.Open([]), ShowHelp, UI.FeedbackWindow.ShowSingle, SetPaused, _settings.Paused, () => Shutdown());
+        var tray = new TrayIcon(OpenDesktop, OpenSettings, () => _controller.OpenForClipboard(), () => ShelfWindow.Open([]), ShowHelp, UI.FeedbackWindow.ShowSingle, SetPaused, _settings.Paused, () => Shutdown());
         if (_updater.Available is { } update)
             tray.OfferUpdate(update.Version, () => _ = _updater.InstallAsync(update));
         return tray;
@@ -145,6 +133,7 @@ internal sealed class App : Application
 
     private void HandleArgs(string[] args)
     {
+        if (args.Contains("--home")) OpenDesktop();
         if (args.Contains("--settings"))
             OpenSettings();
         var wheelIndex = Array.IndexOf(args, "--wheel");
@@ -153,6 +142,8 @@ internal sealed class App : Application
     }
 
     private void OpenSettings() => SettingsWindow.ShowSingle(_settings, _tools, OnSettingsChanged);
+
+    private void OpenDesktop() => DesktopWindow.ShowSingle(_controller.QueuePaths, OpenSettings);
 
     private void OnSettingsChanged()
     {

@@ -9,7 +9,7 @@
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <AssemblyName>Sweetch</AssemblyName>
+    <AssemblyName>SweetchDesktop</AssemblyName>
     <RootNamespace>Sweetch.App</RootNamespace>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>Assets\Sweetch.ico</ApplicationIcon>
@@ -23,9 +23,9 @@
     -->
     <!-- Explorer selection and Outlook drops use classic COM, which trimming turns off by default. -->
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
-    <Product>Sweetch</Product>
-    <Authors>mmmorozov</Authors>
-    <Company>mmmorozov</Company>
+    <Product>Sweetch Desktop</Product>
+    <Authors>yasinsckijtema1907-eng; mmmorozov; Metamorfolog</Authors>
+    <Company>yasinsckijtema1907-eng</Company>
     <Copyright>Sweetch modifications © 2026 mmmorozov. Third-party notices included.</Copyright>
     <Description>Конвертация файлов через круговое меню</Description>
     <!-- ThemeMode (Fluent) is still marked experimental. -->
