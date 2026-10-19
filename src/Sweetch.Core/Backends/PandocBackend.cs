@@ -30,6 +30,10 @@ public static class PandocBackend
 
     public static async Task ConvertAsync(OperationContext ctx, string input, string inputFormat, string output, string format)
     {
+        // The child runs from the source folder so linked resources resolve there.
+        // Resolve file arguments first; otherwise relative paths are applied twice.
+        input = Path.GetFullPath(input);
+        output = Path.GetFullPath(output);
         var pandoc = ctx.Tools.Require(ExternalTool.Pandoc);
         var args = new List<string>
         {
