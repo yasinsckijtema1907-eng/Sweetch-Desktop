@@ -4,6 +4,10 @@
 
 **[Скачать готовую программу → Releases](https://github.com/yasinsckijtema1907-eng/Sweetch-Desktop/releases/latest)**
 
+![Главное окно Sweetch Desktop](docs/desktop-dark.png)
+
+![Круговое меню конвертации](docs/desktop-wheel.png)
+
 ## Запуск
 
 1. Скачайте `SweetchDesktop-1.0.0-win-x64.zip` из раздела Releases.
