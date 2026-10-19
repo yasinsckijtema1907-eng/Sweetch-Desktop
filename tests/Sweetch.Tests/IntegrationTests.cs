@@ -180,7 +180,9 @@ public class IntegrationTests : IClassFixture<IntegrationTests.Samples>
                     Assert.Empty(Directory.GetFiles(outDir, "*.part.*"));
                     output.WriteLine($"ok   {op.Id} → {string.Join(", ", result.Outputs.Select(Path.GetFileName))}");
                 }
-                catch (ConversionException ex) when (key is "pdf" && !_s.PdfHasText && ex.Message.Contains("neobsahuje žádný text"))
+                catch (ConversionException ex) when (key is "pdf" && !_s.PdfHasText && ex.Message == Loc.T(
+                    "The PDF contains no text (probably a scan). Try converting it to JPG/PNG.",
+                    "В PDF нет текста (вероятно, это скан). Попробуйте конвертацию в JPG/PNG."))
                 {
                     output.WriteLine($"ok   {op.Id} (expected: image-only PDF has no text)");
                 }
