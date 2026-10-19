@@ -1,5 +1,11 @@
-name: Sweetch Windows
-on: [push, pull_request, workflow_dispatch]
+name: Sweetch Desktop Windows
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+  release:
+    types: [published]
 permissions:
   contents: read
 jobs:
@@ -18,20 +24,42 @@ jobs:
       - name: Verify packaged app
         shell: pwsh
         run: |
-          $p = Start-Process ./publish/Sweetch.exe -ArgumentList '--self-test', './self-test' -PassThru -Wait
+          $p = Start-Process ./publish/SweetchDesktop.exe -ArgumentList '--self-test', './self-test' -PassThru -Wait -WindowStyle Hidden
           Get-Content ./self-test/self-test.txt
           if ($p.ExitCode -ne 0) { throw 'Sweetch self-test failed' }
       - name: Package
         shell: pwsh
         run: |
-          New-Item -ItemType Directory -Force artifacts | Out-Null
-          Compress-Archive -Path ./publish/* -DestinationPath ./artifacts/Sweetch-1.0-win-x64.zip
+          ./scripts/package.ps1
       - uses: actions/upload-artifact@v4
         with:
-          name: Sweetch-1.0-Windows
+          name: SweetchDesktop-1.0.0-Windows
           path: artifacts/*
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: Sweetch-previews
+          name: SweetchDesktop-verification
           path: self-test
+  release:
+    if: github.event_name == 'release'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: SweetchDesktop-1.0.0-Windows
+          path: artifacts
+      - uses: actions/github-script@v8
+        with:
+          script: |
+            const fs = require('fs');
+            for (const name of fs.readdirSync('artifacts')) {
+              await github.rest.repos.uploadReleaseAsset({
+                ...context.repo,
+                release_id: context.payload.release.id,
+                name,
+                data: fs.readFileSync(`artifacts/${name}`)
+              });
+            }
