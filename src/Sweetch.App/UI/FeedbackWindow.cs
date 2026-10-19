@@ -17,9 +17,9 @@ internal sealed class FeedbackWindow : Window
         Background = Theme.Page; Foreground = Theme.Text; FontFamily = Theme.UiFont;
         var root = new StackPanel { Margin = new Thickness(28) };
         root.Children.Add(Text(T("Let's make Sweetch better", "Сделаем Sweetch лучше"), 25, FontWeights.SemiBold));
-        var intro = Text(T("Ideas, questions and feedback — on the project's Telegram channel.", "Идеи, вопросы и обратная связь — в Telegram-канале проекта."), 14, brush: Theme.Muted);
+        var intro = Text(T("Ideas, questions and feedback — on GitHub.", "Идеи, вопросы и обратная связь — на GitHub."), 14, brush: Theme.Muted);
         intro.Margin = new Thickness(0, 12, 0, 22); root.Children.Add(intro);
-        root.Children.Add(Button("Telegram · @mmmorozov", () => Shell.Updater.Open(Brand.Channel), primary: true));
+        root.Children.Add(Button("GitHub Issues", () => Shell.Updater.Open(Brand.Channel), primary: true));
         Content = root;
     }
     public static void ShowSingle() => Shell.Updater.Open(Brand.Channel);

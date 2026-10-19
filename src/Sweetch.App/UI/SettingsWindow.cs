@@ -48,7 +48,7 @@ internal sealed partial class SettingsWindow : Window
         _tools = tools;
         _changed = changed;
         Theme.Refresh();
-        Title = T("Sweetch – settings", "Sweetch — настройки");
+        Title = T("Sweetch Desktop – settings", "Sweetch Desktop — настройки");
         Width = 1180;
         Height = 820;
         MinWidth = 760;
