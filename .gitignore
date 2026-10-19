@@ -2,7 +2,12 @@
 **/obj/
 publish/
 self-test/
+self-test-*/
 artifacts/
 *.user
 .vs/
 TestResults/
+
+.build-tools/
+.build-logs/
+

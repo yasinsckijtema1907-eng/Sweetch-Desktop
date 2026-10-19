@@ -5,6 +5,7 @@ try {
     if ($LASTEXITCODE -ne 0) { throw 'Сборка Sweetch завершилась с ошибкой.' }
     & ./scripts/bundle-pandoc.ps1 -Destination ./publish/tools
     Copy-Item LICENSE, THIRD-PARTY-NOTICES.md, README.md publish/
-    Write-Output 'Готово: publish/Sweetch.exe'
+    Copy-Item START-HERE.txt publish/
+    Write-Output 'Готово: publish/SweetchDesktop.exe'
 }
 finally { Pop-Location }
