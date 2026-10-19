@@ -207,7 +207,8 @@ internal sealed partial class SettingsWindow : Window
         version.Margin = new Thickness(10, 12, 0, 0);
         DockPanel.SetDock(version, Dock.Bottom);
         dock.Children.Add(version);
-        var support = Button(T("Support the project", "Поддержать проект"), () => Page = SettingsPage.About, primary: true, glyph: "");
+        var support = Button(T("Support the project", "Поддержать проект"), () => Shell.Updater.Open(Brand.Support), primary: true, glyph: "");
+        support.ToolTip = Brand.Support;
         support.Margin = new Thickness(6, 10, 6, 8);
         DockPanel.SetDock(support, Dock.Bottom);
         dock.Children.Add(support);
