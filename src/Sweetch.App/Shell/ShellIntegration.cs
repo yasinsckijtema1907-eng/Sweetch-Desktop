@@ -3,12 +3,12 @@ using static Sweetch.Core.Loc;
 
 namespace Sweetch.App.Shell;
 
-/// <summary>Autostart and the "Sweetch…" entry in Explorer's context menu (per user, no admin needed).</summary>
+/// <summary>Autostart and the "Sweetch Desktop…" entry in Explorer's context menu (per user, no admin needed).</summary>
 internal static class ShellIntegration
 {
     private const string RunKey = @"Software\Microsoft\Windows\CurrentVersion\Run";
-    private const string ValueName = "Sweetch";
-    private static readonly string[] MenuRoots = [@"Software\Classes\*\shell\Sweetch", @"Software\Classes\Directory\shell\Sweetch"];
+    private const string ValueName = "SweetchDesktop";
+    private static readonly string[] MenuRoots = [@"Software\Classes\*\shell\SweetchDesktop", @"Software\Classes\Directory\shell\SweetchDesktop"];
 
     private static string Exe => Environment.ProcessPath ?? throw new InvalidOperationException(T("Unknown application path.", "Неизвестный путь приложения."));
 
@@ -49,7 +49,7 @@ internal static class ShellIntegration
                 continue;
             }
             using var key = Registry.CurrentUser.CreateSubKey(root);
-            key.SetValue(null, "Sweetch…");
+            key.SetValue(null, "Sweetch Desktop…");
             key.SetValue("Icon", $"\"{Exe}\",0");
             key.SetValue("MultiSelectModel", "Player");
             using var command = key.CreateSubKey("command");

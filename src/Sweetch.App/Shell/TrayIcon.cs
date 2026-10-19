@@ -12,10 +12,11 @@ internal sealed class TrayIcon : IDisposable
     private Forms.ToolStripMenuItem? _update;
     private Action? _balloonClick;
 
-    public TrayIcon(Action openSettings, Action openClipboard, Action openShelf, Action showHelp, Action sendFeedback, Action<bool> setPaused, bool paused, Action exit)
+    public TrayIcon(Action openDesktop, Action openSettings, Action openClipboard, Action openShelf, Action showHelp, Action sendFeedback, Action<bool> setPaused, bool paused, Action exit)
     {
         var stream = System.Windows.Application.GetResourceStream(new Uri("pack://application:,,,/Assets/Sweetch.ico"))!.Stream;
         var menu = new Forms.ContextMenuStrip();
+        menu.Items.Add(T("Open Sweetch Desktop", "Открыть Sweetch Desktop"), null, (_, _) => openDesktop());
         menu.Items.Add(T("Wheel for the clipboard", "Меню для буфера обмена"), null, (_, _) => openClipboard());
         menu.Items.Add(T("Settings…", "Настройки…"), null, (_, _) => openSettings());
         menu.Items.Add(T("Empty floating shelf", "Открыть пустую полку"), null, (_, _) => openShelf());
@@ -30,11 +31,11 @@ internal sealed class TrayIcon : IDisposable
         _icon = new Forms.NotifyIcon
         {
             Icon = new System.Drawing.Icon(stream),
-            Text = "Sweetch",
+            Text = "Sweetch Desktop",
             ContextMenuStrip = menu,
             Visible = true,
         };
-        _icon.DoubleClick += (_, _) => openSettings();
+        _icon.DoubleClick += (_, _) => openDesktop();
         _icon.BalloonTipClicked += (_, _) =>
         {
             var action = _balloonClick;
