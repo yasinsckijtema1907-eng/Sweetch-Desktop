@@ -1,4 +1,4 @@
-Sweetch Desktop 1.0.0 — Windows x64
+Sweetch Desktop 1.0.1 — Windows x64
 
 1. Распакуйте ВЕСЬ архив в отдельную папку.
 2. Запустите SweetchDesktop.exe.
